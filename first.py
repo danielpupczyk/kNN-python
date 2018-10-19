@@ -37,7 +37,7 @@ class kNN:
                         self.neighbors[0][1]=j                                     	#index of min neighbors
                 j+=1
             i+=1
-            print(str(i)+"."+str(self.labels[self.neighbors[0][1]]))				#print index and predic label
+            print(str(i)+".Przewidziana etykieta: "+str(self.labels[self.neighbors[0][1]]))				#print index and predic label
             self.neighbors[0]=10000													#reset val
                         
                     
