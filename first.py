@@ -8,6 +8,9 @@ class kNN:
         self.fullLearningData=np.array(pd.read_csv(nameOfLearningDataFile,header=None))			#load learning data
         self.learningData=self.fullLearningData[:,0:4]								#devide to data and labels
         self.labels=self.fullLearningData[:,4]
+        self.uniqueLabels = set(self.labels)
+        self.uniqueLabels = dict.fromkeys(self.uniqueLabels, 0)                      #to store unique labels values (without duplication)
+        self.predictedValues = []                                                    #to store predicted value for each testing data
         
     def getData(self):
         print("Data:")
@@ -31,7 +34,7 @@ class kNN:
                 d=self.computeDistanse(np.array([xa]),np.array([xb]))               #obliczamy odległosc pomiędzy wektorem uczącym i testującym
                 if d<self.neighbors[0][self.k-1]:                                   #jeli d jest mniejsze od ostatniego elementu w tablicy (najwiekszego)
                     self.neighbors[0][self.k-1]=d                                   #to wkładamy tam dystans  
-                    self.neighbors[1][self.k-1]=j                                   #oraz index pod jakim siedzi etykieta   
+                    self.neighbors[1][self.k-1]=j                                #oraz index pod jakim siedzi etykieta   
                     for tmp1 in range((self.k)-1,0,-1):                             #jesli dodalismy to srotujemy bąblekowo
                        for tmp2 in range(tmp1):
                            if self.neighbors[0][tmp2]>self.neighbors[0][tmp2+1]:    #powronujemy tylko dystanse
@@ -40,14 +43,22 @@ class kNN:
                                self.neighbors[:,tmp2+1] = temp 
                 j+=1
             print("Lp."+str(i+1))                                                   #numer danej testujacej
-            no=1;
             for neighbor in self.neighbors[1]:                                      #and his neighbors
-                print("Neighbor no. "+str(no)+": "+self.labels[int(neighbor)])
-                no+=1
+                self.uniqueLabels[self.labels[int(neighbor)]] += 1                  #increment number of occurs the same nearest neighbor
+            maxOccurs = 0                                                           #maximum number of occurs
+            maxOccursName = 0                                                       #label name for maximum occurs
+            for key in self.uniqueLabels:                                           #search for label that occurs the most
+                if self.uniqueLabels[key] > maxOccurs:
+                    maxOccurs = self.uniqueLabels[key]
+                    maxOccursLabel = key
+            print('Predicted value: ' + str(maxOccursLabel))                        #our predicted value
+            self.predictedValues.append(maxOccursLabel)
             i+=1
+            maxOccurs = 0                                                           #reset all values before next iteration
+            maxOccursLabel = 0
+            for key in self.uniqueLabels:
+                self.uniqueLabels[key] = 0
             self.neighbors=np.array([[10000.1]*self.k]*2)							#reset val
                         
-
-kNN = kNN(5,"iris.data.learning")
+kNN = kNN(3,"iris.data.learning")
 kNN.predict("iris.data.test")
-            
