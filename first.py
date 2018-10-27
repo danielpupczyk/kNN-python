@@ -76,7 +76,4 @@ class kNN(object):
         print('The ratio of correctly recognized labels: ' + str(result))
         return result
         
-                        
-kNN = kNN(2,"iris.data.learning")
-predictions = kNN.predict("iris.data.test")
-ratio = kNN.score("iris.data.test", predictions)
+

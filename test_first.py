@@ -16,3 +16,5 @@ class TestFirst(unittest.TestCase):
                        'Iris-virginica']
         self.assertSequenceEqual(result, test_result)
         
+if __name__ == '__main__':
+    unittest.main()
