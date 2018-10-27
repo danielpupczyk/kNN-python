@@ -10,7 +10,6 @@ class kNN:
         self.labels=self.fullLearningData[:,4]
         self.uniqueLabels = set(self.labels)
         self.uniqueLabels = dict.fromkeys(self.uniqueLabels, 0)                      #to store unique labels values (without duplication)
-        self.predictedValues = []                                                    #to store predicted value for each testing data
         
     def getData(self):
         print("Data:")
@@ -23,7 +22,8 @@ class kNN:
     def computeDistanse(self,a,b):													#computing euclidean distanse, parameters are two vectores
         return cdist(a,b, 'euclidean')[0][0]										#return distans, [][]- beocuse its dimensional array i tylko tak mi działało
       
-    def predict(self,nameOfTestingDataFile):      
+    def predict(self,nameOfTestingDataFile):
+        predictedValues = []
         self.neighbors=np.array([[10000.1]*self.k]*2)								#empty array of k-neighbors ('*2' becouse value and index)
         testingData=np.array(pd.read_csv(nameOfTestingDataFile,header=None))        #load testing data, header, zeby wczytywało też pierwszy wiersz
         testingData=testingData[:,0:4]                                              #delete labels
@@ -52,13 +52,30 @@ class kNN:
                     maxOccurs = self.uniqueLabels[key]
                     maxOccursLabel = key
             print('Predicted value: ' + str(maxOccursLabel))                        #our predicted value
-            self.predictedValues.append(maxOccursLabel)
+            predictedValues.append(maxOccursLabel)
             i+=1
             maxOccurs = 0                                                           #reset all values before next iteration
             maxOccursLabel = 0
             for key in self.uniqueLabels:
                 self.uniqueLabels[key] = 0
             self.neighbors=np.array([[10000.1]*self.k]*2)							#reset val
+        return predictedValues
+
+    def score(self, nameOfTestingDataFile, predictedLabels):
+        testingData=np.array(pd.read_csv(nameOfTestingDataFile,header=None))        #load testing data, header, zeby wczytywało też pierwszy wiersz
+        testingLabels = testingData[:,4]                                            #labels for testing data
+        testingData=testingData[:,0:4]                                              #delete labels
+        i = 0                                                                       #index dla przewidzianych labelek
+        result = 0                                                                  #to będzie nasz współczynnik
+        for label in testingLabels:
+            if str(label) == str(predictedLabels[i]):                               #jesli poprawnie przewidziano, to dodajemy 1
+                result += 1
+            i+=1
+        result = result/i                                                           #na koniec sumę poprawnie przewidzianych, dzielimy na ilosc wszystkich
+        print('The ratio of correctly recognized labels: ' + str(result))
+        return result
+        
                         
-kNN = kNN(3,"iris.data.learning")
-kNN.predict("iris.data.test")
+kNN = kNN(5,"iris.data.learning")
+predictions = kNN.predict("iris.data.test")
+ratio = kNN.score("iris.data.test", predictions)
