@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from scipy.spatial.distance import pdist, squareform, cdist
 
-class kNN:
+class kNN(object):
     def __init__(self,k,nameOfLearningDataFile):									#constructor with number of neighbor and name of file with learningdata		
         self.k=k
         self.fullLearningData=np.array(pd.read_csv(nameOfLearningDataFile,header=None))			#load learning data
@@ -59,6 +59,7 @@ class kNN:
             for key in self.uniqueLabels:
                 self.uniqueLabels[key] = 0
             self.neighbors=np.array([[10000.1]*self.k]*2)							#reset val
+        print(predictedValues)
         return predictedValues
 
     def score(self, nameOfTestingDataFile, predictedLabels):
@@ -76,6 +77,6 @@ class kNN:
         return result
         
                         
-kNN = kNN(5,"iris.data.learning")
+kNN = kNN(2,"iris.data.learning")
 predictions = kNN.predict("iris.data.test")
 ratio = kNN.score("iris.data.test", predictions)
