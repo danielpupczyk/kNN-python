@@ -42,7 +42,7 @@ class kNN(object):
                                self.neighbors[:,tmp2] = self.neighbors[:,tmp2+1]
                                self.neighbors[:,tmp2+1] = temp 
                 j+=1
-            print("Lp."+str(i+1))                                                   #numer danej testujacej
+            #print("Lp."+str(i+1))                                                   #numer danej testujacej
             for neighbor in self.neighbors[1]:                                      #and his neighbors
                 self.uniqueLabels[self.labels[int(neighbor)]] += 1                  #increment number of occurs the same nearest neighbor
             maxOccurs = 0                                                           #maximum number of occurs
@@ -51,7 +51,7 @@ class kNN(object):
                 if self.uniqueLabels[key] > maxOccurs:
                     maxOccurs = self.uniqueLabels[key]
                     maxOccursLabel = key
-            print('Predicted value: ' + str(maxOccursLabel))                        #our predicted value
+            #print('Predicted value: ' + str(maxOccursLabel))                        #our predicted value
             predictedValues.append(maxOccursLabel)
             i+=1
             maxOccurs = 0                                                           #reset all values before next iteration
@@ -73,6 +73,7 @@ class kNN(object):
                 result += 1
             i+=1
         result = result/i                                                           #na koniec sumę poprawnie przewidzianych, dzielimy na ilosc wszystkich
+        print('')
         print('The ratio of correctly recognized labels: ' + str(result))
         return result
         

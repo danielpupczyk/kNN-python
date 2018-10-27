@@ -66,7 +66,3 @@ class TestFirst(unittest.TestCase):
         self.assertEquals(0.9333333333333333, result1)
         self.assertEquals(0.9333333333333333, result2)
         self.assertEquals(0.9333333333333333, result3)
-        
-        
-if __name__ == '__main__':
-    unittest.main()
