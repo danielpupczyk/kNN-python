@@ -19,7 +19,7 @@ while True:
         print('--------------------------------------')
         print('')
         kNN=first.kNN(int(k),"iris.data.learning")
-        kNN.predict("iris.data.test")
+        kNN.predict("iris.data.test",2)
     elif option=='2':
         k = input('>>>>Choose number of neighbors: ')
         print('')
@@ -28,7 +28,7 @@ while True:
         print('--------------------------------------')
         print('')
         kNN=first.kNN(int(k),"iris.data.learning")
-        kNN.score("iris.data.test", kNN.predict("iris.data.test"))
+        kNN.score("iris.data.test", kNN.predict("iris.data.test",1),2)
     elif option=='3':
         print('')
         print('--------------------------------------')

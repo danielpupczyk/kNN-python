@@ -22,7 +22,7 @@ class TestFirst(unittest.TestCase):
     
     def test_predict(self):
         print('test_predict')
-        result1 = self.obj1.predict("iris.data.test")
+        result1 = self.obj1.predict("iris.data.test",1)
         test_result1 = ['Iris-setosa', 'Iris-setosa', 
                         'Iris-setosa', 'Iris-versicolor', 
                         'Iris-versicolor', 'Iris-versicolor', 
@@ -32,7 +32,7 @@ class TestFirst(unittest.TestCase):
                         'Iris-virginica', 'Iris-virginica', 
                         'Iris-virginica']
         
-        result2 = self.obj2.predict("iris.data.test")
+        result2 = self.obj2.predict("iris.data.test",1)
         test_result2 = ['Iris-setosa', 'Iris-setosa', 
                         'Iris-setosa', 'Iris-versicolor', 
                         'Iris-versicolor', 'Iris-versicolor', 
@@ -42,7 +42,7 @@ class TestFirst(unittest.TestCase):
                         'Iris-virginica', 'Iris-virginica', 
                         'Iris-virginica']
        
-        result3 = self.obj3.predict("iris.data.test")
+        result3 = self.obj3.predict("iris.data.test",1)
         test_result3 = ['Iris-setosa', 'Iris-setosa', 
                         'Iris-setosa', 'Iris-versicolor', 
                         'Iris-versicolor', 'Iris-versicolor', 
@@ -57,12 +57,12 @@ class TestFirst(unittest.TestCase):
         
     def test_score(self):
         print('test_score')
-        pred1 = self.obj1.predict("iris.data.test")
-        pred2 = self.obj2.predict("iris.data.test")
-        pred3 = self.obj3.predict("iris.data.test")
-        result1 = self.obj1.score("iris.data.test", pred1)
-        result2 = self.obj2.score("iris.data.test", pred2)
-        result3 = self.obj3.score("iris.data.test", pred3)
+        pred1 = self.obj1.predict("iris.data.test",1)
+        pred2 = self.obj2.predict("iris.data.test",1)
+        pred3 = self.obj3.predict("iris.data.test",1)
+        result1 = self.obj1.score("iris.data.test", pred1,1)
+        result2 = self.obj2.score("iris.data.test", pred2,1)
+        result3 = self.obj3.score("iris.data.test", pred3,1)
         self.assertEquals(0.9333333333333333, result1)
         self.assertEquals(0.9333333333333333, result2)
         self.assertEquals(0.9333333333333333, result3)
