@@ -5,7 +5,7 @@ import unittest
 option = 0
 while True:
     print('')
-    print('--------------------------------------')
+    print('-----------------MENU---------------------')
     print("1.Run method: Predict")
     print("2.Run method: Score")
     print("3.Run Unitest")
